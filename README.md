@@ -4,6 +4,55 @@
 
 这是一个中文优先的 Codex skill，适合把一句话想法、模糊需求、零散笔记，转换成结构化提示词，用于 ChatGPT、OpenAI API、Codex、Claude、写作、调研、图像生成和 Agent 工作流等场景。
 
+`Status: Tested`
+`Language: Chinese-first`
+`Type: Codex Skill`
+
+## Overview
+
+`prompt-enhancer-cn` 的目标不是解释 Prompt 工程，而是直接给出更好的 Prompt。
+
+它主要解决的是这些问题：
+- 用户输入太短，只有一句话想法
+- 用户需求太口语化，缺少结构
+- 用户说“更专业一点”，但没有写清楚标准
+- 原始 Prompt 混杂了目标、背景、限制和输出要求
+- 想直接拿到可以复制使用的最终版本
+
+这个 skill 会自动补齐常见缺口：
+- 目标
+- 输入材料
+- 约束条件
+- 输出格式
+- 质量要求
+- 引用或来源要求
+
+## Quick Example
+
+原始输入：
+
+```text
+帮我做一个调研，看看 AI 编程产品还有没有机会，写得专业一点
+```
+
+优化后可能得到：
+
+```text
+请对中国 AI 编程产品市场机会进行一份结构化调研分析，输出面向产品负责人和创业团队的专业结论。
+
+调研目标：
+- 判断当前 AI 编程产品是否仍存在可进入的市场机会
+- 识别最值得关注的细分方向
+- 分析主要竞争压力、产品门槛与商业化难点
+
+输出格式：
+1. 核心结论
+2. 市场机会判断
+3. 值得关注的 3 个细分方向
+4. 风险与不确定性
+5. 建议
+```
+
 ## Features
 
 - 中文优先：默认输出中文优化稿
@@ -13,7 +62,7 @@
 - 输出可控：支持 `只输出优化稿` 和 `优化稿 + 说明`
 - 调研增强：支持来源、引用、可核查性要求
 
-## Best for
+## Best For
 
 - `优化提示词`
 - `自然语言转 prompt`
@@ -21,7 +70,7 @@
 - `把这段中文需求整理成适合 AI 的指令`
 - `生成更专业 / 更严格 / 更稳定的 prompt`
 
-## Example requests
+## Example Requests
 
 ```text
 用 prompt-enhancer-cn 帮我把这段需求优化成 prompt
@@ -31,38 +80,38 @@
 不要解释，直接给我最终 prompt
 ```
 
-## Supported task types
+## Supported Task Types
 
-### 1. Coding / debugging
+### Coding / debugging
 
-把模糊的“帮我修 bug”“帮我写代码”改成更像工程任务的 Prompt，补上：
+把模糊的“帮我修 bug”“帮我写代码”改成更像工程任务的 Prompt，通常会补上：
 - 上下文
 - 文件范围
 - 约束条件
 - 验收标准
 - 验证步骤
 
-### 2. Writing / summarization
+### Writing / summarization
 
-适合把“帮我写篇文章”“帮我总结一下”改成更明确的写作任务，补上：
+适合把“帮我写篇文章”“帮我总结一下”改成更明确的写作任务，通常会补上：
 - 目标读者
 - 语气风格
 - 篇幅长度
 - 输出结构
 - 禁止事项
 
-### 3. Research / analysis
+### Research / analysis
 
-适合把“帮我调研一下”“分析一下有没有机会”改成可执行分析任务，补上：
+适合把“帮我调研一下”“分析一下有没有机会”改成可执行分析任务，通常会补上：
 - 时间范围
 - 比较维度
 - 结论结构
 - 风险与不确定性
 - 来源 / 引用要求
 
-### 4. Image generation
+### Image generation
 
-把“做一张高级感海报”“生成某种风格图片”改成更可渲染的图像 Prompt，补上：
+把“做一张高级感海报”“生成某种风格图片”改成更可渲染的图像 Prompt，通常会补上：
 - 主体
 - 构图
 - 光线
@@ -70,22 +119,22 @@
 - 色板
 - Negative constraints
 
-### 5. Agent / workflow
+### Agent / workflow
 
-适合生成更稳的 Agent 提示词，补上：
+适合生成更稳的 Agent 提示词，通常会补上：
 - 目标
 - 工具边界
 - 阶段汇报点
 - 停止条件
 - 交付物
 
-## Output modes
+## Output Modes
 
 ### `只输出优化稿`
 
 适合直接复制使用。
 
-示例触发：
+示例：
 
 ```text
 把这段需求优化成 prompt，不要解释，直接给我成品
@@ -93,15 +142,24 @@
 
 ### `优化稿 + 说明`
 
-适合你想看优化结果，同时了解改动逻辑。
+适合既想看最终结果，也想知道关键改动逻辑的场景。
 
-示例触发：
+示例：
 
 ```text
 帮我优化这个 prompt，并告诉我你做了哪些关键改动
 ```
 
-## Files
+## Prompt Styles
+
+根据请求类型不同，这个 skill 倾向生成不同风格的 Prompt：
+
+- `简洁版`：适合快速复制使用
+- `严格版`：强调边界、格式和检查点
+- `调研版`：强调分析维度、证据、来源和不确定性
+- `实现版`：强调可执行、可验证、可交付
+
+## Repository Layout
 
 ```text
 skill/
@@ -121,10 +179,25 @@ tests/
 - `tests/TEST_REPORT.md`: 初始测试报告
 - `tests/REGRESSION_TEST_REPORT_ROUND2.md`: 第二轮回归测试报告
 
+## Install
+
+这个仓库当前以 skill 源文件仓库形式发布。
+
+如果你正在维护本地 Codex skills 目录，可以把 `skill/` 下内容放入：
+
+```text
+~/.codex/skills/prompt-enhancer-cn/
+```
+
+然后在新会话中直接触发，例如：
+
+```text
+用 prompt-enhancer-cn 帮我把这段需求优化成 prompt
+```
+
 ## Testing
 
 本项目当前包含：
-
 - 1 份测试计划
 - 1 份主测试报告
 - 1 份回归测试报告
@@ -138,18 +211,6 @@ tests/
 - Prompt 结构提升
 - 引用规则
 - 输出模式切换
-
-## Install / use
-
-这个仓库当前主要作为 skill 源文件仓库发布。
-
-如果你正在维护自己的 Codex skills 目录，可以把 `skill/` 下内容放入本地 skill 目录中，例如：
-
-```text
-~/.codex/skills/prompt-enhancer-cn/
-```
-
-然后按你的 Codex 环境约定加载或在新会话中触发。
 
 ## Roadmap
 
